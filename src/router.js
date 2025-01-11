@@ -1,5 +1,3 @@
-// Archivo: src/router.js
-
 import { createRouter, createWebHistory } from 'vue-router';
 import Login from './components/Login.vue';
 import Dashboard from './components/Dashboard.vue';
