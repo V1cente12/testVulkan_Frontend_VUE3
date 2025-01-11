@@ -37,11 +37,9 @@ export default {
           password: this.password,
         })
         .then(() => {
-          // Guardar credenciales en localStorage
           localStorage.setItem('username', this.username);
           localStorage.setItem('password', this.password);
 
-          // Redirigir al dashboard
           this.$router.push('/dashboard');
         })
         .catch((error) => {
@@ -54,7 +52,6 @@ export default {
 </script>
 
 <style scoped>
-/* Asegurar que no haya desplazamiento innecesario */
 html, body {
   margin: 0;
   padding: 0;
