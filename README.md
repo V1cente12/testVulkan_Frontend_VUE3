@@ -1,5 +1,8 @@
 # testvulkan_frontend_vue3
 
+username: vicente
+password : abc123
+
 ## Project setup
 ```
 npm install
