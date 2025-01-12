@@ -1,21 +1,26 @@
 <template>
-  <div class="login-container">
-    <h1>Iniciar sesión</h1>
-    <form @submit.prevent="login">
-      <input 
-        v-model="username" 
-        type="text" 
-        placeholder="Usuario" 
-        required
-      />
-      <input 
-        v-model="password" 
-        type="password" 
-        placeholder="Contraseña" 
-        required
-      />
-      <button type="submit">Iniciar sesión</button>
-    </form>
+  <div class="login-page">
+    <div class="login-container">
+      <div class="login-logo">
+        <img src="@/assets/vulkan.png" alt="Logo">
+      </div>
+      <h1>Iniciar sesión</h1>
+      <form @submit.prevent="login">
+        <input 
+          v-model="username" 
+          type="text" 
+          placeholder="Usuario" 
+          required
+        />
+        <input 
+          v-model="password" 
+          type="password" 
+          placeholder="Contraseña" 
+          required
+        />
+        <button type="submit">Iniciar sesión</button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -40,7 +45,7 @@ export default {
           localStorage.setItem('username', this.username);
           localStorage.setItem('password', this.password);
 
-          this.$router.push('/dashboard');
+          this.$router.push('/dashboard/statistics');
         })
         .catch((error) => {
           console.error('Error al iniciar sesión:', error);
@@ -51,64 +56,74 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.login-page {
+  background-color: #2B2B2B;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .login-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
+  max-width: 400px;
   padding: 20px;
-  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  text-align: center;
 }
 
-h1 {
-  font-size: 24px;
+.login-logo {
+  text-align: center;
   margin-bottom: 20px;
 }
 
-input {
-  width: 100%;
-  max-width: 300px;
-  padding: 12px;
-  margin-bottom: 12px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+.login-logo img {
+  max-width: 180px;
+  height: 100%;
+}
+
+.login-container h1 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.login-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-container form input {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
   font-size: 16px;
 }
 
-button {
-  width: 100%;
-  max-width: 300px;
-  padding: 12px;
-  background-color: #007bff;
+.login-container form button {
+  padding: 10px;
+  background-color: #dc3545;
   color: white;
   border: none;
-  border-radius: 6px;
-  font-size: 16px;
+  border-radius: 4px;
   cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
 }
 
-button:hover {
-  background-color: #0056b3;
-}
-
-.register-link {
-  margin-top: 10px;
-  font-size: 14px;
-}
-
-.register-link a {
-  color: #007bff;
-}
-
-.register-link a:hover {
-  text-decoration: underline;
+.login-container form button:hover {
+  background-color: #c82333;
 }
 </style>
