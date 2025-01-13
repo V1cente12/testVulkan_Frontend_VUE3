@@ -115,6 +115,7 @@
 <script>
 import axios from 'axios';
 import { useToast } from 'vue-toastification';
+const apiUrl = process.env.VUE_APP_API_URL;
 
 export default {
   data() {
@@ -152,7 +153,7 @@ export default {
     //get courses
     fetchCourses() {
       axios
-        .get("http://localhost:8080/course")
+        .get(`${apiUrl}/course`)
         .then((response) => {
           this.courses = response.data;
         })
@@ -167,7 +168,7 @@ export default {
         return;
       }
       axios
-        .post("http://localhost:8080/course", this.newCourseData)
+        .post(`${apiUrl}/course`, this.newCourseData)
         .then((response) => {
           this.courses.push(response.data);
           this.showCreateModal = false;
@@ -195,7 +196,7 @@ export default {
         return;
       }
       axios
-        .put(`http://localhost:8080/course/${this.editCourseData.id}`, this.editCourseData)
+        .put(`${apiUrl}/course/${this.editCourseData.id}`, this.editCourseData)
         .then(() => {
           const index = this.courses.findIndex(course => course.id === this.editCourseData.id);
           if (index !== -1) {
@@ -222,7 +223,7 @@ export default {
     },
     deleteCourse(courseId) {
       axios
-        .delete(`http://localhost:8080/course/${courseId}`)
+        .delete(`${apiUrl}/course/${courseId}`)
         .then(() => {
           this.courses = this.courses.filter(course => course.id !== courseId);
           this.showModal = false;
@@ -237,7 +238,7 @@ export default {
     },
     viewStudents(courseId) {
       axios
-        .get(`http://localhost:8080/course/${courseId}/students`)
+        .get(`${apiUrl}/course/${courseId}/students`)
         .then((response) => {
           this.students = response.data;
           this.showStudentsModal = true;

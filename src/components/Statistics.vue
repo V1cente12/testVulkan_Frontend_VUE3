@@ -46,7 +46,7 @@
 import axios from "axios";
 import * as d3 from "d3";
 import { useToast } from 'vue-toastification';
-
+const apiUrl = process.env.VUE_APP_API_URL;
 
 export default {
   data() {
@@ -57,7 +57,7 @@ export default {
   methods: {
     fetchData() {
       axios
-        .get("http://localhost:8080/stadistics")
+        .get(`${apiUrl}/stadistics`)
         .then((response) => {
           this.statistics = response.data;
           this.createCharts();

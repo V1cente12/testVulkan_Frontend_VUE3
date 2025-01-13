@@ -128,6 +128,7 @@
 <script>
 import axios from 'axios';
 import { useToast } from 'vue-toastification';
+const apiUrl = process.env.VUE_APP_API_URL;
 
 export default {
   data() {
@@ -178,7 +179,7 @@ export default {
   methods: {
     fetchStudents() {
       axios
-        .get("http://localhost:8080/student")
+        .get(`${apiUrl}/student`)
         .then((response) => {
           this.students = response.data;
         })
@@ -189,7 +190,7 @@ export default {
     
     fetchCourses() {
       axios
-        .get("http://localhost:8080/course")
+        .get(`${apiUrl}/course`)
         .then((response) => {
           this.courses = response.data;
         })
@@ -200,7 +201,7 @@ export default {
     createStudent() {
       const toast = useToast();
       axios
-        .post("http://localhost:8080/student", this.newStudentData)
+        .post(`${apiUrl}/student`, this.newStudentData)
         .then(() => {
           this.fetchStudents();
           this.showCreateModal = false;
@@ -213,7 +214,7 @@ export default {
     },
     editStudent(studentId) {
       axios
-        .get(`http://localhost:8080/student/${studentId}`)
+        .get(`${apiUrl}/student/${studentId}`)
         .then((response) => {
           this.editStudentData = response.data;
           this.showEditModal = true;
@@ -225,7 +226,7 @@ export default {
     updateStudent() {
       const toast = useToast();
       axios
-        .put(`http://localhost:8080/student/${this.editStudentData.id}`, this.editStudentData)
+        .put(`${apiUrl}/student/${this.editStudentData.id}`, this.editStudentData)
         .then(() => {
           this.fetchStudents();
           this.showEditModal = false;
@@ -243,7 +244,7 @@ export default {
     deleteStudent(studentId) {
       const toast = useToast();
       axios
-        .delete(`http://localhost:8080/student/${studentId}`)
+        .delete(`${apiUrl}/student/${studentId}`)
         .then(() => {
           this.students = this.students.filter(student => student.id !== studentId);
           this.showModal = false;

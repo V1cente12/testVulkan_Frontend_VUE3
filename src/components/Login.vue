@@ -26,6 +26,7 @@
 
 <script>
 import axios from 'axios';
+const apiUrl = process.env.VUE_APP_API_URL;
 
 export default {
   data() {
@@ -37,7 +38,7 @@ export default {
   methods: {
     login() {
       axios
-        .post('http://localhost:8080/login', {
+        .post(`${apiUrl}/login`, {
           username: this.username,
           password: this.password,
         })
