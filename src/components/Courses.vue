@@ -41,7 +41,6 @@
     <!--confirm modal -->
     <div v-if="showModal" class="modal">
       <div class="modal-content">
-        <span class="close" @click="showModal = false">&times;</span>
         <p>¿Está seguro de que desea eliminar este curso?</p>
         <button @click="deleteCourse(confirmedCourseId)" class="btn btn-danger">Eliminar</button>
         <button @click="showModal = false" class="btn btn-secondary">Cancelar</button>
@@ -54,14 +53,14 @@
         <h3>Editar Curso</h3>
         <form @submit.prevent="updateCourse">
           <div class="form-group">
-            <label for="courseName">Nombre del Curso</label>
+            <label for="courseName">Nombre del Curso:</label>
             <input type="text" id="courseName" v-model="editCourseData.name" required />
           </div>
           <div class="form-group">
-            <label for="courseCapacity">Capacidad Máxima</label>
+            <label for="courseCapacity">Capacidad Máxima:</label>
             <input type="number" id="courseCapacity" v-model="editCourseData.maxCapacity" required min="1" />
           </div>
-          <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
           <button type="button" @click="showEditModal = false" class="btn btn-secondary">Cancelar</button>
         </form>
       </div>
@@ -73,14 +72,14 @@
         <h3>Crear Nuevo Curso</h3>
         <form @submit.prevent="createCourse">
           <div class="form-group">
-            <label for="newCourseName">Nombre del Curso</label>
+            <label for="newCourseName">Nombre del Curso:</label>
             <input type="text" id="newCourseName" v-model="newCourseData.name" required />
           </div>
           <div class="form-group">
-            <label for="newCourseCapacity">Capacidad Máxima</label>
+            <label for="newCourseCapacity">Capacidad Máxima:</label>
             <input type="number" id="newCourseCapacity" v-model="newCourseData.maxCapacity" required min="1" />
           </div>
-          <button type="submit" class="btn btn-primary">Crear Curso</button>
+          <button type="submit" class="btn btn-primary">Crear</button>
           <button type="button" @click="showCreateModal = false" class="btn btn-secondary">Cancelar</button>
         </form>
       </div>
@@ -102,7 +101,7 @@
             <tr v-for="student in students" :key="student.id">
               <td>{{ student.name }}</td>
               <td>{{ student.age }}</td>
-              <td>{{ student.gender }}</td>
+              <td>{{ student.gender === 'M' ? 'Masculino' : student.gender === 'F' ? 'Femenino' : 'Otro' }}</td>
             </tr>
           </tbody>
         </table>
@@ -123,7 +122,7 @@ export default {
       courses: [], 
       searchQuery: '', 
       currentPage: 1, 
-      itemsPerPage: 9, 
+      itemsPerPage: 12, 
       showModal: false, 
       showEditModal: false, 
       showCreateModal: false, 
@@ -176,8 +175,7 @@ export default {
           const toast = useToast();
           toast.success('Curso creado exitosamente');
         })
-        .catch((error) => {
-          console.error("Error al crear curso:", error);
+        .catch(() => {
           const toast = useToast();
           toast.error('Error al crear curso');
         });
@@ -204,10 +202,9 @@ export default {
           }
           this.showEditModal = false;
           const toast = useToast();
-          toast.success('Curso actualizado exitosamente');
+          toast.info('Curso actualizado exitosamente');
         })
-        .catch((error) => {
-          console.error("Error al actualizar curso:", error);
+        .catch(() => { 
           const toast = useToast();
           toast.error('Error al actualizar curso');
         });
@@ -228,10 +225,9 @@ export default {
           this.courses = this.courses.filter(course => course.id !== courseId);
           this.showModal = false;
           const toast = useToast();
-          toast.success('Curso eliminado exitosamente');
+          toast.error ('Curso eliminado exitosamente');
         })
-        .catch((error) => {
-          console.error("Error al eliminar curso:", error);
+        .catch(() => {
           const toast = useToast();
           toast.error('Error al eliminar curso');
         });
@@ -243,8 +239,7 @@ export default {
           this.students = response.data;
           this.showStudentsModal = true;
         })
-        .catch((error) => {
-          console.error("Error al obtener estudiantes:", error);
+        .catch(() => {
           const toast = useToast();
           toast.error('Error al obtener estudiantes');
         });
@@ -374,6 +369,7 @@ export default {
 
 .btn-primary {
   background-color: #007bff;
+  color: white;
 }
 
 .btn-danger {
@@ -460,7 +456,7 @@ export default {
 }
 
 .modal-content {
-  background-color: #fff;
+  background-color: #e4e0e0;
   padding: 20px;
   border-radius: 8px;
   text-align: center;
@@ -497,10 +493,6 @@ export default {
   color: white;
 }
 
-.btn-secondary {
-  background-color: #6c757d;
-  color: white;
-}
 
 .form-group {
   margin-bottom: 15px;
@@ -513,8 +505,8 @@ export default {
 }
 
 .form-group input {
-  width: 100%;
-  padding: 8px;
+  width: 80%;
+  padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
 }

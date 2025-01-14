@@ -301,7 +301,7 @@ export default {
 
 <style scoped>
 .statistics-container {
-  padding: 20px;
+  padding: 50px;
   border-radius: 8px;
 }
 

@@ -27,6 +27,7 @@
 <script>
 import axios from 'axios';
 const apiUrl = process.env.VUE_APP_API_URL;
+import { useToast } from 'vue-toastification'; 
 
 export default {
   data() {
@@ -48,9 +49,9 @@ export default {
 
           this.$router.push('/dashboard/statistics');
         })
-        .catch((error) => {
-          console.error('Error al iniciar sesión:', error);
-          alert('Credenciales incorrectas.');
+        .catch(() => {
+          const toast = useToast();
+          toast.error('Credenciales incorrectas.');
         });
     },
   },

@@ -50,7 +50,6 @@
     <!--delete modal -->
     <div v-if="showModal" class="modal">
       <div class="modal-content">
-        <span class="close" @click="showModal = false">&times;</span>
         <p>¿Está seguro de que desea eliminar este estudiante?</p>
         <button @click="deleteStudent(confirmedStudentId)" class="btn btn-danger">Eliminar</button>
         <button @click="showModal = false" class="btn btn-secondary">Cancelar</button>
@@ -117,7 +116,7 @@
               <option v-for="course in courses" :key="course.id" :value="course.id">{{ course.name }}</option>
             </select>
           </div>
-          <button type="submit" class="btn btn-primary">Guardar</button>
+          <button type="submit" class="btn btn-primary">Crear</button>
           <button type="button" @click="showCreateModal = false" class="btn btn-secondary">Cancelar</button>
         </form>
       </div>
